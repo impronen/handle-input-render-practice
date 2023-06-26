@@ -3,13 +3,14 @@ import Overview from "./components/Overview";
 import uniqid from "uniqid";
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       task: {
         text: "",
         id: uniqid(),
+        taskNumber: 0,
       },
       tasks: [],
     };
@@ -20,6 +21,7 @@ class App extends Component {
       task: {
         text: e.target.value,
         id: this.state.task.id,
+        taskNumber: this.state.task.taskNumber,
       },
     });
   };
@@ -31,6 +33,7 @@ class App extends Component {
       task: {
         text: "",
         id: uniqid(),
+        taskNumber: this.state.task.taskNumber + 1,
       },
     });
   };
