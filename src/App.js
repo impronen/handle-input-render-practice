@@ -16,6 +16,12 @@ class App extends Component {
     };
   }
 
+  removeTask = (taskId) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.filter((task) => task.id !== taskId),
+    }));
+  };
+
   handleChange = (e) => {
     this.setState({
       task: {
@@ -53,7 +59,7 @@ class App extends Component {
           />
           <button type="submit">Add Task</button>
         </form>
-        <Overview tasks={tasks} />
+        <Overview tasks={tasks} removeTask={this.removeTask} />
       </div>
     );
   }

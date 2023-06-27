@@ -3,9 +3,9 @@ import React from "react";
 const Overview = (props) => {
   const { tasks } = props;
 
-  function handleClick() {
-    console.log(tasks);
-  }
+  const handleClick = (taskId) => {
+    props.removeTask(taskId);
+  };
 
   return (
     <ul>
@@ -13,7 +13,7 @@ const Overview = (props) => {
         return (
           <li key={task.id}>
             {task.text}&nbsp;{task.taskNumber}&nbsp;
-            <button onClick={handleClick}>Delete</button>
+            <button onClick={() => handleClick(task.id)}>Delete</button>
           </li>
         );
       })}
@@ -22,3 +22,5 @@ const Overview = (props) => {
 };
 
 export default Overview;
+
+// next just make a bloody loop
