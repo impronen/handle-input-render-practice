@@ -11,6 +11,7 @@ class App extends Component {
         text: "",
         id: uniqid(),
         taskNumber: 0,
+        editing: false,
       },
       tasks: [],
     };
@@ -20,6 +21,31 @@ class App extends Component {
     this.setState((prevState) => ({
       tasks: prevState.tasks.filter((task) => task.id !== taskId),
     }));
+  };
+
+  editTask = (taskId) => {
+    this.setState((prevState) => {
+      const updatedTasks = prevState.tasks.map((task) => {
+        if (task.id === taskId) {
+          // Toggle the editing property
+          return { ...task, editing: !task.editing };
+        }
+        return task;
+      });
+      return { tasks: updatedTasks };
+    });
+  };
+
+  updateTaskText = (taskId, newText) => {
+    this.setState((prevState) => {
+      const updatedTasks = prevState.tasks.map((task) => {
+        if (task.id === taskId) {
+          return { ...task, text: newText };
+        }
+        return task;
+      });
+      return { tasks: updatedTasks };
+    });
   };
 
   handleChange = (e) => {
@@ -59,7 +85,12 @@ class App extends Component {
           />
           <button type="submit">Add Task</button>
         </form>
-        <Overview tasks={tasks} removeTask={this.removeTask} />
+        <Overview
+          tasks={tasks}
+          removeTask={this.removeTask}
+          editTask={this.editTask}
+          updateTaskText={this.updateTaskText}
+        />
       </div>
     );
   }
